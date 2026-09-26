@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+ * Tokens del sistema visual (Claude Design · v1: cálido, editorial, sereno).
+ * Terracota solo para CTAs y progreso; el resto de acentos, para ilustrar.
+ */
+@theme {
+  --color-crema: #faf6ef; /* fondo de página */
+  --color-lino: #f2ebdf; /* secciones alternas */
+  --color-blanco: #fffdf9; /* tarjetas, formulario */
+  --color-arena: #e4d9c7; /* bordes, divisores */
+  --color-tinta-suave: #6b6158; /* texto secundario */
+  --color-tinta: #2e2a26; /* titulares y texto */
+
+  --color-terracota: #a9543a; /* acción */
+  --color-terracota-hover: #8f4430;
+  --color-terracota-tinte: #f3ded4;
+  --color-salvia: #7f9477;
+  --color-salvia-texto: #4f6349;
+  --color-salvia-tinte: #e3e9dc;
+  --color-mostaza: #d9a94e;
+  --color-mostaza-texto: #8a6420;
+  --color-mostaza-tinte: #f5e8c8;
+  --color-azul: #a9bcc8;
+  --color-azul-texto: #3f5e73;
+  --color-azul-tinte: #e4ecf0;
+  --color-error: #b3261e;
+
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-script: var(--font-allura), cursive; /* solo para "de Lúa" del logo */
+
+  --shadow-sm: 0 1px 2px rgb(46 42 38 / 0.06), 0 2px 8px -2px rgb(46 42 38 / 0.06);
+  --shadow-md: 0 12px 32px -12px rgb(46 42 38 / 0.16);
+  --shadow-lg: 0 28px 56px -20px rgb(46 42 38 / 0.24);
+  --shadow-cta: 0 10px 24px -12px rgb(169 84 58 / 0.7);
+
+  --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-crema);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-terracota);
+  outline-offset: 3px;
+}
+
+/* Contenedor 1200 px con márgenes de 120 px; móvil 20 px */
+@utility container-page {
+  @apply mx-auto w-full max-w-[1440px] px-5 md:px-12 xl:px-[120px];
+}
+/* 128 px entre secciones (72 px en móvil) */
+@utility section-y {
+  @apply py-[72px] md:py-24 xl:py-32;
+}
+@utility eyebrow {
+  @apply text-xs font-semibold tracking-[0.14em] text-salvia-texto uppercase;
+}
+@utility h2 {
+  @apply font-serif text-[40px] leading-[1.05] font-normal text-balance md:text-[56px];
+}
+@utility arch {
+  border-radius: 999px 999px 12px 12px;
+}
+@utility btn {
+  @apply inline-flex h-14 cursor-pointer items-center justify-center gap-2.5 rounded-full px-8 text-[17px] font-semibold transition-[filter,transform,box-shadow] duration-200 ease-suave hover:-translate-y-px hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:brightness-100;
+}
+@utility btn-primary {
+  @apply btn bg-terracota text-blanco shadow-(--shadow-cta);
+}
+@utility btn-outline {
+  @apply btn border-[1.5px] border-tinta text-tinta;
+}
+@utility field {
+  @apply h-[52px] w-full rounded-xl border-[1.5px] border-arena bg-blanco px-4 text-base text-tinta placeholder:text-tinta-suave/70 focus:border-terracota focus:shadow-[0_0_0_4px_var(--color-terracota-tinte)] focus:outline-none aria-[invalid=true]:border-error;
+}
+@utility chip {
+  @apply inline-flex h-11 cursor-pointer items-center rounded-full border-[1.5px] border-arena bg-blanco px-5 text-[15px] font-medium text-tinta transition-colors hover:border-terracota;
+}
+@utility lift {
+  @apply transition-[transform,box-shadow] duration-400 ease-suave hover:-translate-y-1.5 hover:shadow-(--shadow-lg);
+}
