@@ -9,8 +9,8 @@ import { SITE } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { TONE } from "@/components/ui/tones";
 import { cn } from "@/lib/cn";
-import { SELECT_PLAN_EVENT } from "@/lib/events";
-import { leadSchema, STEP_FIELDS, type Lead, type LeadInput, type UploadedPhoto } from "@/lib/lead-schema";
+import { SELECT_PLAN_EVENT, SERVICE_CHANGED_EVENT } from "@/lib/events";
+import { labelOf, leadSchema, STEP_FIELDS, type Lead, type LeadInput, type UploadedPhoto } from "@/lib/lead-schema";
 import { withRetry } from "@/lib/retry";
 import { StepPhotos } from "./StepPhotos";
 import { StepRoom } from "./StepRoom";
@@ -97,6 +97,12 @@ export function LeadForm() {
     const sub = watch((values) => writeDraft(values as LeadInput));
     return () => sub.unsubscribe();
   }, [reset, watch]);
+
+  // Avisa a la sección Servicios del servicio elegido para marcar su tarjeta
+  const service = watch("service") as string;
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(SERVICE_CHANGED_EVENT, { detail: service }));
+  }, [service]);
 
   // Preselección desde las tarjetas de servicios
   useEffect(() => {
@@ -215,6 +221,14 @@ export function LeadForm() {
                   </div>
                 </div>
 
+                {step === 0 && service ? (
+                  <p className="flex items-center gap-2 rounded-xl bg-salvia-tinte px-4 py-3 text-[15px] text-salvia-texto">
+                    <Icon name="check-circle" className="shrink-0" />
+                    <span>
+                      Servicio elegido: <strong className="font-semibold">{labelOf(SERVICE_OPTIONS, service)}</strong>. Puedes cambiarlo en el paso 2.
+                    </span>
+                  </p>
+                ) : null}
                 {step === 0 && <StepYou />}
                 {step === 1 && <StepSpace />}
                 {step === 2 && <StepRoom />}

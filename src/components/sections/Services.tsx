@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { SERVICE_CHANGED_EVENT } from "@/lib/events";
 import { SERVICES } from "@/content/home";
 import { CURRENCY, PLANS, type Plan } from "@/content/pricing";
 import { Icon } from "@/components/ui/Icon";
@@ -12,16 +13,27 @@ import { cn } from "@/lib/cn";
 
 const fmt = new Intl.NumberFormat("es-ES", { useGrouping: "always" });
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({ plan, selected }: { plan: Plan; selected: boolean }) {
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const price =
     plan.price === "custom" ? null : plan.price === null ? "X" : fmt.format(plan.price);
   return (
+    // Pulsar en cualquier parte de la tarjeta equivale a pulsar su botón
     <div
+      onClick={(e) => {
+        if (!(e.target as HTMLElement).closest("a")) ctaRef.current?.click();
+      }}
       className={cn(
-        "lift relative flex h-full flex-col gap-7 rounded-2xl bg-blanco px-6 py-10 sm:px-9",
-        plan.highlighted ? "border-2 border-terracota pt-12 shadow-[0_28px_56px_-24px_rgb(46_42_38/0.22)]" : "border border-arena",
+        "lift relative flex h-full cursor-pointer flex-col gap-7 rounded-2xl bg-blanco px-6 py-10 sm:px-9",
+        plan.highlighted || selected ? "border-2 border-terracota pt-12 shadow-[0_28px_56px_-24px_rgb(46_42_38/0.22)]" : "border border-arena",
+        selected && "ring-4 ring-terracota-tinte",
       )}
     >
+      {selected ? (
+        <span className="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-terracota px-3 py-1 text-[13px] font-semibold text-blanco">
+          <Icon name="check" size={14} strokeWidth={2.5} /> Elegido
+        </span>
+      ) : null}
       {plan.highlighted ? (
         <span className="absolute -top-[17px] left-6 rounded-full bg-salvia-texto px-[18px] py-2 text-[13px] font-semibold tracking-[0.04em] whitespace-nowrap text-blanco md:left-1/2 md:-translate-x-1/2">
           {SERVICES.recommended}
@@ -57,7 +69,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           ))}
         </ul>
       </div>
-      <PlanCta planId={plan.id} className={cn("w-full text-base", plan.highlighted ? "btn-primary" : "btn-outline")}>
+      <PlanCta ref={ctaRef} planId={plan.id} className={cn("w-full text-base", plan.highlighted || selected ? "btn-primary" : "btn-outline")}>
         {plan.cta}
       </PlanCta>
     </div>
@@ -67,6 +79,14 @@ function PlanCard({ plan }: { plan: Plan }) {
 export function Services() {
   const initial = Math.max(0, PLANS.findIndex((p) => p.highlighted));
   const [active, setActive] = useState(initial);
+  const [selected, setSelected] = useState<string | null>(null);
+
+  // Marca la tarjeta del servicio elegido (desde aquí o desde el formulario)
+  useEffect(() => {
+    const onChange = (e: Event) => setSelected((e as CustomEvent<string>).detail || null);
+    window.addEventListener(SERVICE_CHANGED_EVENT, onChange);
+    return () => window.removeEventListener(SERVICE_CHANGED_EVENT, onChange);
+  }, []);
 
   return (
     <section id="servicios" aria-labelledby="servicios-title" className="section-y bg-lino">
@@ -106,7 +126,7 @@ export function Services() {
             ))}
           </div>
           <div id={`panel-${PLANS[active].id}`} role="tabpanel" aria-labelledby={`tab-${PLANS[active].id}`} className="mt-8">
-            <PlanCard plan={PLANS[active]} />
+            <PlanCard plan={PLANS[active]} selected={selected === PLANS[active].id} />
           </div>
         </div>
 
@@ -114,7 +134,7 @@ export function Services() {
         <ul className="hidden items-stretch gap-6 pt-4 md:grid md:grid-cols-3">
           {PLANS.map((plan, i) => (
             <Reveal as="li" key={plan.id} delay={i * 0.08}>
-              <PlanCard plan={plan} />
+              <PlanCard plan={plan} selected={selected === plan.id} />
             </Reveal>
           ))}
         </ul>
