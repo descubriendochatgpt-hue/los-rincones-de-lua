@@ -13,7 +13,9 @@ import { cn } from "@/lib/cn";
 
 const fmt = new Intl.NumberFormat("es-ES", { useGrouping: "always" });
 
-function PlanCard({ plan, selected }: { plan: Plan; selected: boolean }) {
+function PlanCard({ plan, selected, anySelected }: { plan: Plan; selected: boolean; anySelected: boolean }) {
+  // La tarjeta recomendada solo se destaca mientras no se ha elegido ninguna
+  const emphasized = selected || (plan.highlighted && !anySelected);
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const price =
     plan.price === "custom" ? null : plan.price === null ? "X" : fmt.format(plan.price);
@@ -25,7 +27,8 @@ function PlanCard({ plan, selected }: { plan: Plan; selected: boolean }) {
       }}
       className={cn(
         "lift relative flex h-full cursor-pointer flex-col gap-7 rounded-2xl bg-blanco px-6 py-10 sm:px-9",
-        plan.highlighted || selected ? "border-2 border-terracota pt-12 shadow-[0_28px_56px_-24px_rgb(46_42_38/0.22)]" : "border border-arena",
+        emphasized ? "border-2 border-terracota shadow-[0_28px_56px_-24px_rgb(46_42_38/0.22)]" : "border border-arena",
+        plan.highlighted && "pt-12",
         selected && "ring-4 ring-terracota-tinte",
       )}
     >
@@ -69,7 +72,7 @@ function PlanCard({ plan, selected }: { plan: Plan; selected: boolean }) {
           ))}
         </ul>
       </div>
-      <PlanCta ref={ctaRef} planId={plan.id} className={cn("w-full text-base", plan.highlighted || selected ? "btn-primary" : "btn-outline")}>
+      <PlanCta ref={ctaRef} planId={plan.id} className={cn("w-full text-base", emphasized ? "btn-primary" : "btn-outline")}>
         {plan.cta}
       </PlanCta>
     </div>
@@ -126,7 +129,7 @@ export function Services() {
             ))}
           </div>
           <div id={`panel-${PLANS[active].id}`} role="tabpanel" aria-labelledby={`tab-${PLANS[active].id}`} className="mt-8">
-            <PlanCard plan={PLANS[active]} selected={selected === PLANS[active].id} />
+            <PlanCard plan={PLANS[active]} selected={selected === PLANS[active].id} anySelected={selected !== null} />
           </div>
         </div>
 
@@ -134,7 +137,7 @@ export function Services() {
         <ul className="hidden items-stretch gap-6 pt-4 md:grid md:grid-cols-3">
           {PLANS.map((plan, i) => (
             <Reveal as="li" key={plan.id} delay={i * 0.08}>
-              <PlanCard plan={plan} selected={selected === plan.id} />
+              <PlanCard plan={plan} selected={selected === plan.id} anySelected={selected !== null} />
             </Reveal>
           ))}
         </ul>
