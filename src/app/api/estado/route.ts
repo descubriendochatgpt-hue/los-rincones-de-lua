@@ -1,6 +1,7 @@
 import { del, put } from "@vercel/blob";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { blobVariableNames, getBlobToken } from "@/lib/blob-token";
 
 export const dynamic = "force-dynamic";
 
@@ -12,12 +13,19 @@ export async function GET() {
   const result: Record<string, { ok: boolean; detalle: string }> = {};
 
   // Vercel Blob: sube y borra un archivo de prueba público
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    result.fotos = { ok: false, detalle: "Falta BLOB_READ_WRITE_TOKEN: conecta un Blob Store al proyecto (Storage → Blob → Connect) y vuelve a desplegar (Redeploy)." };
+  const token = getBlobToken();
+  if (!token) {
+    const names = blobVariableNames();
+    result.fotos = {
+      ok: false,
+      detalle:
+        "Esta versión publicada no tiene la clave de Vercel Blob. Conecta el Blob Store al proyecto marcando Production y después haz Redeploy. " +
+        (names.length ? `Variables parecidas encontradas: ${names.join(", ")}.` : "No hay ninguna variable de Blob en este despliegue."),
+    };
   } else {
     try {
-      const blob = await put("diagnostico/prueba.txt", "ok", { access: "public", addRandomSuffix: true });
-      await del(blob.url);
+      const blob = await put("diagnostico/prueba.txt", "ok", { access: "public", addRandomSuffix: true, token });
+      await del(blob.url, { token });
       result.fotos = { ok: true, detalle: "Vercel Blob funciona." };
     } catch (e) {
       const msg = (e as Error).message;

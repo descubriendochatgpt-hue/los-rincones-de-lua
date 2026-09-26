@@ -1,10 +1,11 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
 import { PHOTO_RULES } from "@/content/form";
+import { getBlobToken } from "@/lib/blob-token";
 
 /** Indica si la subida de fotos está configurada (lo usa el formulario para mostrar un error claro). */
 export async function GET() {
-  return NextResponse.json({ configured: Boolean(process.env.BLOB_READ_WRITE_TOKEN) });
+  return NextResponse.json({ configured: Boolean(getBlobToken()) });
 }
 
 /**
@@ -12,7 +13,8 @@ export async function GET() {
  * (así no pasan por la función y no hay límite de 4,5 MB por petición).
  */
 export async function POST(request: Request) {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  const token = getBlobToken();
+  if (!token) {
     return NextResponse.json(
       { error: "La subida de fotos no está configurada (falta BLOB_READ_WRITE_TOKEN)." },
       { status: 503 },
@@ -22,6 +24,7 @@ export async function POST(request: Request) {
   const body = (await request.json()) as HandleUploadBody;
   try {
     const result = await handleUpload({
+      token,
       body,
       request,
       onBeforeGenerateToken: async (pathname) => {
