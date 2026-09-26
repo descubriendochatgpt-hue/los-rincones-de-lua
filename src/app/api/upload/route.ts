@@ -1,40 +1,55 @@
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { issueSignedToken } from "@vercel/blob";
+import { handleUpload, handleUploadPresigned, type HandleUploadBody, type HandleUploadPresignedBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
 import { PHOTO_RULES } from "@/content/form";
-import { getBlobToken } from "@/lib/blob-token";
+import { getBlobMode, getBlobToken } from "@/lib/blob-token";
 
-/** Indica si la subida de fotos está configurada (lo usa el formulario para mostrar un error claro). */
+const RULES = {
+  allowedContentTypes: Object.keys(PHOTO_RULES.accept),
+  maximumSizeInBytes: PHOTO_RULES.maxSizeMB * 1024 * 1024,
+};
+
+/** Indica al formulario si la subida está configurada y con qué sistema. */
 export async function GET() {
-  return NextResponse.json({ configured: Boolean(getBlobToken()) });
+  const mode = getBlobMode();
+  return NextResponse.json({ configured: mode !== null, mode });
 }
 
 /**
- * Genera tokens para que el navegador suba las fotos directamente a Vercel Blob
+ * Autoriza al navegador a subir las fotos directamente a Vercel Blob
  * (así no pasan por la función y no hay límite de 4,5 MB por petición).
  */
 export async function POST(request: Request) {
-  const token = getBlobToken();
-  if (!token) {
-    return NextResponse.json(
-      { error: "La subida de fotos no está configurada (falta BLOB_READ_WRITE_TOKEN)." },
-      { status: 503 },
-    );
+  const mode = getBlobMode();
+  if (!mode) {
+    return NextResponse.json({ error: "La subida de fotos no está configurada (falta conectar Vercel Blob)." }, { status: 503 });
   }
 
-  const body = (await request.json()) as HandleUploadBody;
+  const body = (await request.json()) as HandleUploadBody | HandleUploadPresignedBody;
   try {
+    // Sistema nuevo (OIDC): URL firmada por foto
+    if (body.type === "blob.generate-presigned-url") {
+      const result = await handleUploadPresigned({
+        body: body as HandleUploadPresignedBody,
+        request,
+        getSignedToken: async (pathname) => {
+          if (!pathname.startsWith("leads/")) throw new Error("Ruta no permitida");
+          const validUntil = Date.now() + 10 * 60 * 1000;
+          const token = await issueSignedToken({ pathname, operations: ["put"], validUntil, ...RULES });
+          return { token, urlOptions: { validUntil, ...RULES } };
+        },
+      });
+      return NextResponse.json(result);
+    }
+
+    // Sistema clásico: token de cliente firmado con BLOB_READ_WRITE_TOKEN
     const result = await handleUpload({
-      token,
-      body,
+      token: getBlobToken(),
+      body: body as HandleUploadBody,
       request,
       onBeforeGenerateToken: async (pathname) => {
         if (!pathname.startsWith("leads/")) throw new Error("Ruta no permitida");
-        return {
-          allowedContentTypes: Object.keys(PHOTO_RULES.accept),
-          maximumSizeInBytes: PHOTO_RULES.maxSizeMB * 1024 * 1024,
-          addRandomSuffix: true,
-          validUntil: Date.now() + 10 * 60 * 1000,
-        };
+        return { ...RULES, addRandomSuffix: true, validUntil: Date.now() + 10 * 60 * 1000 };
       },
     });
     return NextResponse.json(result);

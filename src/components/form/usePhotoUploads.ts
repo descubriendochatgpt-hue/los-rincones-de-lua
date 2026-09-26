@@ -1,6 +1,6 @@
 "use client";
 
-import { upload } from "@vercel/blob/client";
+import { upload, uploadPresigned } from "@vercel/blob/client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PHOTO_RULES } from "@/content/form";
 import type { UploadedPhoto } from "@/lib/lead-schema";
@@ -33,6 +33,17 @@ const safeName = (name: string) =>
     .replace(/[^a-zA-Z0-9._-]+/g, "-")
     .slice(-80) || "foto.jpg";
 
+// Sistema de subida que usa el servidor ("token" clásico u "oidc" con URL firmada); se consulta una vez
+let modePromise: Promise<"token" | "oidc" | null> | null = null;
+const getUploadMode = () =>
+  (modePromise ??= fetch("/api/upload")
+    .then((r) => r.json())
+    .then((s: { mode: "token" | "oidc" | null }) => s.mode)
+    .catch(() => {
+      modePromise = null;
+      return "token" as const;
+    }));
+
 const uid = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
 /**
@@ -58,12 +69,17 @@ export function usePhotoUploads(onChange: (photos: UploadedPhoto[]) => void) {
       const contentType = detectType(item.file)!;
       patch(item.id, { status: "uploading", progress: 0, error: undefined });
       try {
-        const blob = await upload(`leads/${folder.current}/${safeName(item.file.name)}`, item.file, {
-          access: "public",
+        const mode = await getUploadMode();
+        if (mode === null) throw new Error("not-configured");
+        // Carpeta y prefijo aleatorios: la URL pública no se puede adivinar
+        const pathname = `leads/${folder.current}/${uid().slice(0, 8)}-${safeName(item.file.name)}`;
+        const options = {
+          access: "public" as const,
           handleUploadUrl: "/api/upload",
           contentType,
-          onUploadProgress: ({ percentage }) => patch(item.id, { progress: percentage }),
-        });
+          onUploadProgress: ({ percentage }: { percentage: number }) => patch(item.id, { progress: percentage }),
+        };
+        const blob = mode === "oidc" ? await uploadPresigned(pathname, item.file, options) : await upload(pathname, item.file, options);
         patch(item.id, {
           status: "done",
           progress: 100,
@@ -73,11 +89,8 @@ export function usePhotoUploads(onChange: (photos: UploadedPhoto[]) => void) {
         console.error(e);
         let msg = "Error al subir la foto. Revisa tu conexión e inténtalo de nuevo.";
         // Si el servidor no está configurado, dilo claramente en lugar de pedir reintentar
-        try {
-          const res = await fetch("/api/upload", { method: "GET" });
-          const status = await res.json();
-          if (!status.configured) msg = "La subida de fotos no está disponible ahora mismo. Escríbenos por WhatsApp o email.";
-        } catch {}
+        if (e instanceof Error && e.message === "not-configured")
+          msg = "La subida de fotos no está disponible ahora mismo. Escríbenos por WhatsApp o email.";
         patch(item.id, { status: "error", error: msg });
       }
     },

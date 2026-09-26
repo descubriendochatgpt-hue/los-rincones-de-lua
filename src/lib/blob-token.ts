@@ -1,8 +1,10 @@
 import "server-only";
 
 /**
- * Clave de Vercel Blob. Normalmente es BLOB_READ_WRITE_TOKEN, pero si al conectar
- * el almacén se eligió otro prefijo (p. ej. FOTOS_READ_WRITE_TOKEN) también la encuentra.
+ * Vercel Blob admite dos formas de conexión:
+ *  - clásica: una clave fija BLOB_READ_WRITE_TOKEN (o con otro prefijo);
+ *  - nueva (OIDC): BLOB_STORE_ID + un token temporal que Vercel inyecta en cada petición.
+ * Estas utilidades detectan cuál hay configurada.
  */
 export function getBlobToken(): string | undefined {
   if (process.env.BLOB_READ_WRITE_TOKEN) return process.env.BLOB_READ_WRITE_TOKEN;
@@ -10,6 +12,14 @@ export function getBlobToken(): string | undefined {
     ([key, value]) => key.endsWith("READ_WRITE_TOKEN") && value?.startsWith("vercel_blob_rw_"),
   );
   return entry?.[1];
+}
+
+export type BlobMode = "token" | "oidc" | null;
+
+export function getBlobMode(): BlobMode {
+  if (getBlobToken()) return "token";
+  if (process.env.BLOB_STORE_ID) return "oidc";
+  return null;
 }
 
 /** Nombres (nunca valores) de variables que parecen de Blob, para el diagnóstico. */

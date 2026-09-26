@@ -1,7 +1,7 @@
 import { del, put } from "@vercel/blob";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { blobVariableNames, getBlobToken } from "@/lib/blob-token";
+import { blobVariableNames, getBlobMode, getBlobToken } from "@/lib/blob-token";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +14,8 @@ export async function GET() {
 
   // Vercel Blob: sube y borra un archivo de prueba público
   const token = getBlobToken();
-  if (!token) {
+  const mode = getBlobMode();
+  if (!mode) {
     const names = blobVariableNames();
     result.fotos = {
       ok: false,
@@ -26,7 +27,7 @@ export async function GET() {
     try {
       const blob = await put("diagnostico/prueba.txt", "ok", { access: "public", addRandomSuffix: true, token });
       await del(blob.url, { token });
-      result.fotos = { ok: true, detalle: "Vercel Blob funciona." };
+      result.fotos = { ok: true, detalle: `Vercel Blob funciona (conexión ${mode === "oidc" ? "OIDC" : "con clave"}).` };
     } catch (e) {
       const msg = (e as Error).message;
       result.fotos = {
