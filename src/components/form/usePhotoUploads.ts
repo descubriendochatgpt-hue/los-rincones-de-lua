@@ -71,9 +71,13 @@ export function usePhotoUploads(onChange: (photos: UploadedPhoto[]) => void) {
         });
       } catch (e) {
         console.error(e);
-        const msg = e instanceof Error && /token|configur/i.test(e.message)
-          ? "No se ha podido iniciar la subida. Inténtalo de nuevo."
-          : "Error al subir la foto. Revisa tu conexión.";
+        let msg = "Error al subir la foto. Revisa tu conexión e inténtalo de nuevo.";
+        // Si el servidor no está configurado, dilo claramente en lugar de pedir reintentar
+        try {
+          const res = await fetch("/api/upload", { method: "GET" });
+          const status = await res.json();
+          if (!status.configured) msg = "La subida de fotos no está disponible ahora mismo. Escríbenos por WhatsApp o email.";
+        } catch {}
         patch(item.id, { status: "error", error: msg });
       }
     },
