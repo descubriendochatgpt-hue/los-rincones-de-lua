@@ -49,4 +49,20 @@ export const PROJECTS: Project[] = [
     facts: { budget: "[X] €", surface: "[X] m²", whatWeDid: ["pintura", "distribución", "mobiliario", "decoración"] },
     closing: "[Frase final del proyecto]",
   },
+  {
+    number: "03",
+    title: "La habitación de [nombre]",
+    story:
+      "Una habitación que necesitaba convertirse en un espacio propio para un niño de [X] años… [Cuenta aquí en 2-3 frases cómo era, qué necesitaba la familia y cómo lo resolvisteis.]",
+    before: "/images/proyectos/proyecto-3-antes.jpg",
+    after: "/images/proyectos/proyecto-3-despues.jpg",
+    process: [
+      { src: "/images/proyectos/proyecto-3-proceso-1.jpg", alt: "Proceso: preparando el espacio" },
+      { src: "/images/proyectos/proyecto-3-proceso-2.jpg", alt: "Proceso: pintura" },
+      { src: "/images/proyectos/proyecto-3-proceso-3.jpg", alt: "Proceso: decoración" },
+    ],
+    alt: "Habitación infantil con pared en tono melocotón",
+    facts: { budget: "[X] €", surface: "[X] m²", whatWeDid: ["pintura", "distribución", "mobiliario", "decoración"] },
+    closing: "[Frase final del proyecto]",
+  },
 ];

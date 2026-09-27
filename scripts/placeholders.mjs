@@ -36,6 +36,7 @@ const after = read("despues.svg");
 const variants = {
   "proyecto-1": [],
   "proyecto-2": [["#B7C4AE", "#C9D6DE"], ["#A3B299", "#A9BCC8"]],
+  "proyecto-3": [["#B7C4AE", "#EBCDBE"], ["#A3B299", "#C98B6E"]],
 };
 for (const [name, swaps] of Object.entries(variants)) {
   const a = swaps.reduce((s, [from, to]) => s.replaceAll(from, to), after);
