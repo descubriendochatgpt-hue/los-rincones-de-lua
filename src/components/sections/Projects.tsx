@@ -59,8 +59,11 @@ export function Projects() {
               </h3>
               <p className="text-[17px] leading-relaxed text-tinta-suave">{p.story}</p>
               <dl className="grid gap-4 rounded-2xl border border-arena bg-blanco p-6 text-[15px] sm:grid-cols-2">
-                <div>
-                  <dt className="text-tinta-suave">Presupuesto aproximado</dt>
+                <div className={p.facts.budgetIncludes ? "sm:col-span-2" : undefined}>
+                  <dt className="text-tinta-suave">
+                    Presupuesto aproximado
+                    {p.facts.budgetIncludes ? <span className="mt-0.5 block text-[13px] leading-snug">({p.facts.budgetIncludes})</span> : null}
+                  </dt>
                   <dd className="mt-1 font-serif text-3xl">{p.facts.budget}</dd>
                 </div>
                 <div>

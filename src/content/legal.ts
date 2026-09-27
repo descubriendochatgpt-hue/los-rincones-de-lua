@@ -11,19 +11,11 @@ export type LegalPage = {
   sections: { heading: string; paragraphs: string[] }[];
 };
 
-const OWNER = `[Ángela Apellido Apellido] (${SITE.name}), con NIF [00000000X] y domicilio en [dirección]`;
-
 export const LEGAL: Record<"aviso-legal" | "privacidad" | "cookies", LegalPage> = {
   "aviso-legal": {
     title: "Aviso legal",
-    updated: "[fecha]",
+    updated: "2026",
     sections: [
-      {
-        heading: "Titular del sitio web",
-        paragraphs: [
-          `En cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información (LSSI-CE), se informa de que este sitio web es titularidad de ${OWNER}. Correo electrónico: ${SITE.contact.email}. Teléfono: ${SITE.contact.phone}.`,
-        ],
-      },
       {
         heading: "Condiciones de uso",
         paragraphs: [
@@ -46,11 +38,11 @@ export const LEGAL: Record<"aviso-legal" | "privacidad" | "cookies", LegalPage> 
   },
   privacidad: {
     title: "Política de privacidad",
-    updated: "[fecha]",
+    updated: "2026",
     sections: [
       {
         heading: "Responsable del tratamiento",
-        paragraphs: [`${OWNER}. Contacto: ${SITE.contact.email}.`],
+        paragraphs: ["Los Rincones de Lúa. Contacto: Los Rincones de Lúa"],
       },
       {
         heading: "Qué datos tratamos",
@@ -87,7 +79,7 @@ export const LEGAL: Record<"aviso-legal" | "privacidad" | "cookies", LegalPage> 
   },
   cookies: {
     title: "Política de cookies",
-    updated: "[fecha]",
+    updated: "2026",
     sections: [
       {
         heading: "Qué cookies usamos",

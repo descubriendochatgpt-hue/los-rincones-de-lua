@@ -28,7 +28,7 @@ export function LowBudget() {
                       <Image src={img.src} alt={img.label} fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover" />
                       <span
                         className={`absolute top-auto bottom-3 left-3 rounded-full px-3 py-1 text-[11px] font-semibold tracking-[0.08em] uppercase ${
-                          j === 0 ? "bg-tinta/70 text-blanco" : "bg-blanco/90 text-tinta"
+                          j === 0 ? "bg-tinta/70 text-blanco" : "bg-blanco/90 text-verde"
                         }`}
                       >
                         {j === 0 ? "Antes" : "Después"}

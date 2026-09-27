@@ -30,13 +30,13 @@ export function Header() {
         Saltar al contenido
       </a>
       <div className="container-page flex h-16 items-center justify-between md:h-24">
-        <a href="#inicio" className="text-tinta no-underline" aria-label={`${SITE.name}, ir al inicio`} onClick={() => setOpen(false)}>
+        <a href="#inicio" className="text-verde no-underline" aria-label={`${SITE.name}, ir al inicio`} onClick={() => setOpen(false)}>
           <Logo />
         </a>
 
         <nav aria-label="Principal" className="hidden items-center gap-10 text-[15px] font-medium lg:flex">
           {SITE.nav.map((item) => (
-            <a key={item.href} href={item.href} className="text-tinta transition-colors hover:text-terracota">
+            <a key={item.href} href={item.href} className="text-verde transition-colors hover:text-terracota">
               {item.label}
             </a>
           ))}

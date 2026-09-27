@@ -30,11 +30,11 @@ export const SITE = {
   leadsEmail: "losrinconesdelua@gmail.com",
   contact: {
     email: "losrinconesdelua@gmail.com",
-    phone: "+34 600 000 000",
-    whatsapp: "34600000000", // solo dígitos, con prefijo de país
+    phone: "+34 611 126 352",
+    whatsapp: "34611126352", // solo dígitos, con prefijo de país
     hours: "Lunes a viernes, 9:00–18:00",
     // Zona donde se hacen reformas físicas (se muestra en el footer y en el formulario)
-    serviceArea: "[Zona donde hacéis transformaciones] · diseño online en toda España",
+    serviceArea: "Transformaciones en todo Asturias",
   },
   instagram: { handle: "@losrinconesdelua", url: "https://www.instagram.com/losrinconesdelua/" },
   social: [{ label: "Instagram", href: "https://www.instagram.com/losrinconesdelua/" }],
@@ -46,5 +46,5 @@ export const SITE = {
   ],
   ctaLabel: "Cuéntame tu idea",
   // Texto legal del footer, p. ej. "Los Rincones de Lúa S.L."
-  legalName: "[Razón social]",
+  legalName: "Losrinconesdelua",
 } as const;

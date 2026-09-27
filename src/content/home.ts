@@ -14,6 +14,7 @@ export const HERO = {
     { icon: "heart", text: "Adaptado a tu presupuesto" },
     { icon: "check", text: "Sin compromiso" },
     { icon: "lock", text: "Tus fotos, protegidas" },
+    { icon: "pin", text: "Estamos en Asturias" },
   ],
   // Sustituye /public/images/hero.jpg por una foto bonita de una habitación (vertical 4:5)
   image: { src: "/images/hero.jpg", alt: "Habitación infantil con cama casita, ventana en arco y alfombra" },
@@ -25,8 +26,20 @@ export const WHAT_WE_DO = {
   eyebrow: "¿Qué hacemos?",
   title: "Diseñamos. Transformamos. *Damos una nueva vida a los espacios.*",
   blocks: [
-    { icon: "palette", tone: "azul", title: "Diseño", text: "Distribución, colores, materiales, mobiliario y decoración." },
-    { icon: "wand", tone: "salvia", title: "Transformación", text: "Pintura, pequeños cambios, montaje y personalización." },
+    {
+      icon: "palette",
+      tone: "azul",
+      title: "Diseño",
+      text: "Distribución, colores, materiales, mobiliario y decoración.",
+      location: "Disponible para cualquier localización",
+    },
+    {
+      icon: "wand",
+      tone: "salvia",
+      title: "Transformación",
+      text: "Pintura, pequeños cambios, montaje y personalización.",
+      location: "Disponible para cualquier población en Asturias",
+    },
     { icon: "heart", tone: "mostaza", title: "Presupuesto", text: "Buscamos soluciones bonitas y funcionales sin necesidad de gastar una fortuna." },
   ],
 } as const;
@@ -85,7 +98,7 @@ export const HOW_WE_WORK = {
   title: "Muy *sencillo*",
   intro: "Un proceso fácil y sin complicaciones: tú nos cuentas, nosotras nos ocupamos.",
   steps: [
-    { number: "01", title: "Cuéntame tu idea", text: "Rellena el formulario o escríbeme por WhatsApp o email.", contact: true },
+    { number: "01", title: "Cuéntame tu idea", text: "Rellena el formulario o escríbeme a losrinconesdelua@gmail.com.", contact: true },
     { number: "02", title: "Hablamos", text: "Conocemos el espacio, vuestras necesidades y el presupuesto." },
     { number: "03", title: "Diseñamos", text: "Te presentamos la propuesta." },
     { number: "04", title: "Transformamos", text: "Tú decides cuánto quieres que hagamos nosotras." },

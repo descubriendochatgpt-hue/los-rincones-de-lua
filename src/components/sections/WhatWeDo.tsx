@@ -23,6 +23,12 @@ export function WhatWeDo() {
               </span>
               <h3 className="font-serif text-4xl">{b.title}</h3>
               <p className="text-[17px] leading-relaxed text-tinta-suave">{b.text}</p>
+              {"location" in b && b.location ? (
+                <p className="flex items-start gap-2 text-[15px] font-medium text-salvia-texto">
+                  <Icon name="pin" size={18} className="mt-0.5 shrink-0 text-terracota" />
+                  {b.location}
+                </p>
+              ) : null}
             </Reveal>
           ))}
         </ul>

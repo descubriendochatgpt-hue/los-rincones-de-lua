@@ -10,7 +10,8 @@
   --color-blanco: #fffdf9; /* tarjetas, formulario */
   --color-arena: #e4d9c7; /* bordes, divisores */
   --color-tinta-suave: #6b6158; /* texto secundario */
-  --color-tinta: #2e2a26; /* titulares y texto */
+  --color-tinta: #2e2a26; /* fondo oscuro del pie y capas oscuras */
+  --color-verde: #4f6349; /* texto principal: verde del logo */
 
   --color-terracota: #a9543a; /* acción */
   --color-terracota-hover: #8f4430;
@@ -50,7 +51,7 @@ html {
 
 body {
   background: var(--color-crema);
-  color: var(--color-tinta);
+  color: var(--color-verde);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -83,13 +84,13 @@ body {
   @apply btn bg-terracota text-blanco shadow-(--shadow-cta);
 }
 @utility btn-outline {
-  @apply btn border-[1.5px] border-tinta text-tinta;
+  @apply btn border-[1.5px] border-verde text-verde;
 }
 @utility field {
-  @apply h-[52px] w-full rounded-xl border-[1.5px] border-arena bg-blanco px-4 text-base text-tinta placeholder:text-tinta-suave/70 focus:border-terracota focus:shadow-[0_0_0_4px_var(--color-terracota-tinte)] focus:outline-none aria-[invalid=true]:border-error;
+  @apply h-[52px] w-full rounded-xl border-[1.5px] border-arena bg-blanco px-4 text-base text-verde placeholder:text-tinta-suave/70 focus:border-terracota focus:shadow-[0_0_0_4px_var(--color-terracota-tinte)] focus:outline-none aria-[invalid=true]:border-error;
 }
 @utility chip {
-  @apply inline-flex h-11 cursor-pointer items-center rounded-full border-[1.5px] border-arena bg-blanco px-5 text-[15px] font-medium text-tinta transition-colors hover:border-terracota;
+  @apply inline-flex h-11 cursor-pointer items-center rounded-full border-[1.5px] border-arena bg-blanco px-5 text-[15px] font-medium text-verde transition-colors hover:border-terracota;
 }
 @utility lift {
   @apply transition-[transform,box-shadow] duration-400 ease-suave hover:-translate-y-1.5 hover:shadow-(--shadow-lg);

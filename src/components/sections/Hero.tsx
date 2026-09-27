@@ -4,7 +4,7 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { Rich } from "@/components/ui/Rich";
 
-const TRUST_ICON: Record<string, IconName> = { clock: "clock", check: "check-circle", lock: "lock", heart: "heart" };
+const TRUST_ICON: Record<string, IconName> = { clock: "clock", check: "check-circle", lock: "lock", heart: "heart", pin: "pin" };
 
 export function Hero() {
   return (

@@ -153,7 +153,7 @@ export function StepPhotos({ uploads, error }: { uploads: ReturnType<typeof useP
       <ol className="grid gap-3 text-sm leading-snug text-tinta-suave sm:grid-cols-3">
         {FORM_TEXT.photoTips.map((tip, i) => (
           <li key={tip} className="flex items-start gap-2.5">
-            <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lino text-xs font-semibold text-tinta">
+            <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-lino text-xs font-semibold text-verde">
               {i + 1}
             </span>
             {tip}

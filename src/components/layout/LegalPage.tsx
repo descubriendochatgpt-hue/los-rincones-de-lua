@@ -8,11 +8,11 @@ export function LegalPage({ page }: { page: LegalPageData }) {
     <>
       <header className="border-b border-arena bg-crema">
         <div className="container-page flex h-16 items-center justify-between">
-          <Link href="/" className="text-tinta" aria-label="Volver al inicio">
+          <Link href="/" className="text-verde" aria-label="Volver al inicio">
             <Logo />
           </Link>
           <Link href="/#contacto" className="text-sm font-semibold text-terracota underline underline-offset-4">
-            Pide tu propuesta
+            Cuéntame tu idea
           </Link>
         </div>
       </header>

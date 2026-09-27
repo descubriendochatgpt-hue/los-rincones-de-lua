@@ -12,16 +12,21 @@ export type Project = {
   after: string;
   process: { src: string; alt: string }[];
   alt: string; // descripción breve de la habitación para lectores de pantalla
-  facts: { budget: string; surface: string; whatWeDid: string[] };
+  facts: {
+    budget: string;
+    budgetIncludes?: string; // qué incluye el presupuesto (texto pequeño)
+    surface: string;
+    whatWeDid: string[];
+  };
   closing?: string; // frase final
 };
 
 export const PROJECTS: Project[] = [
   {
     number: "01",
-    title: "La habitación de [nombre]",
+    title: "La habitación de Martín",
     story:
-      "Una habitación que necesitaba convertirse en un espacio propio para un niño de [X] años… [Cuenta aquí en 2-3 frases cómo era, qué necesitaba la familia y cómo lo resolvisteis.]",
+      "Transformamos esta habitación en un espacio propio para un niño de 2 años, pensado para acompañarle en su crecimiento. Buscábamos un ambiente sencillo, luminoso y espacioso, con una cama a ras de suelo y mucho sitio para jugar. La pared acentuada con motivos circulares de colores y los juguetes organizados a su alcance fueron el estímulo perfecto para que diera el paso de empezar a dormir en su propia habitación.",
     before: "/images/proyectos/proyecto-1-antes.jpg",
     after: "/images/proyectos/proyecto-1-despues.jpg",
     process: [
@@ -30,7 +35,12 @@ export const PROJECTS: Project[] = [
       { src: "/images/proyectos/proyecto-1-proceso-3.jpg", alt: "Proceso: últimos detalles de decoración" },
     ],
     alt: "Habitación infantil con pared en verde salvia y ventana en arco",
-    facts: { budget: "[X] €", surface: "[X] m²", whatWeDid: ["pintura", "distribución", "mobiliario", "decoración"] },
+    facts: {
+      budget: "1.500 € (+ IVA)",
+      budgetIncludes: "Diseño, muebles, materiales, mano de obra, iluminación y ropa de cama",
+      surface: "7,5 m²",
+      whatWeDid: ["pintura", "distribución", "mobiliario", "decoración"],
+    },
     closing: "El rincón que lo empezó todo. 🌙",
   },
   {

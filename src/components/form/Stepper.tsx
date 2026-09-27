@@ -38,7 +38,7 @@ export function Stepper({ current }: { current: number }) {
               >
                 {i < current ? "✓" : i + 1}
               </span>
-              <span className={cn("absolute top-[50px] text-sm whitespace-nowrap", i === current ? "font-semibold text-tinta" : "font-medium text-tinta-suave")}>
+              <span className={cn("absolute top-[50px] text-sm whitespace-nowrap", i === current ? "font-semibold text-verde" : "font-medium text-tinta-suave")}>
                 {s.label}
               </span>
             </li>

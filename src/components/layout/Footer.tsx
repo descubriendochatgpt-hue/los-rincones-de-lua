@@ -19,7 +19,6 @@ export function Footer() {
             <ul className="space-y-2">
               <li><a className="text-arena underline underline-offset-4 hover:text-blanco" href={`mailto:${contact.email}`}>{contact.email}</a></li>
               <li><a className="text-arena underline underline-offset-4 hover:text-blanco" href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a></li>
-              <li><a className="text-arena underline underline-offset-4 hover:text-blanco" href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
               <li>{contact.hours}</li>
             </ul>
           </div>

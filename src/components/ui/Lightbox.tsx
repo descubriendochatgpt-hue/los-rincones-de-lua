@@ -30,7 +30,7 @@ export function Lightbox({ image, onClose }: { image: { src: string; alt: string
             onClick={onClose}
             aria-label="Cerrar"
             autoFocus
-            className="absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-blanco text-tinta shadow-(--shadow-md)"
+            className="absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-blanco text-verde shadow-(--shadow-md)"
           >
             <Icon name="x" size={18} strokeWidth={2} />
           </button>

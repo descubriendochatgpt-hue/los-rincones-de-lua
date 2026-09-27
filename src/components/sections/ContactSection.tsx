@@ -1,9 +1,18 @@
 import { CONTACT_SECTION } from "@/content/home";
 import { LeadForm } from "@/components/form/LeadForm";
-import { ContactLinks } from "@/components/ui/ContactLinks";
+import { SITE } from "@/content/site";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { Rich } from "@/components/ui/Rich";
+
+function EmailLink() {
+  return (
+    <a href={`mailto:${SITE.contact.email}`} className="flex items-center gap-2 text-[15px] font-medium text-terracota underline underline-offset-4 hover:text-terracota-hover">
+      <Icon name="mail" size={18} className="shrink-0" />
+      {SITE.contact.email}
+    </a>
+  );
+}
 
 const TRUST_ICON: Record<string, IconName> = { lock: "lock", check: "check-circle" };
 
@@ -27,7 +36,7 @@ export function ContactSection() {
           </ul>
           <div className="hidden flex-col gap-3 pt-2 lg:flex">
             <p className="text-sm font-semibold">{CONTACT_SECTION.altContact}</p>
-            <ContactLinks />
+            <EmailLink />
           </div>
         </Reveal>
 
@@ -39,7 +48,7 @@ export function ContactSection() {
               {CONTACT_SECTION.trust[0].text}
             </p>
             <p className="text-sm font-semibold">{CONTACT_SECTION.altContact}</p>
-            <ContactLinks />
+            <EmailLink />
           </div>
         </div>
       </div>

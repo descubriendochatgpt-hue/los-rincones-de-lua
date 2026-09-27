@@ -121,7 +121,7 @@ export function Services() {
                 tabIndex={active === i ? 0 : -1}
                 className={cn(
                   "min-h-11 flex-1 rounded-full px-1 text-[13px] leading-tight font-semibold transition-colors sm:text-[15px]",
-                  active === i ? "bg-blanco text-tinta shadow-(--shadow-sm)" : "text-tinta-suave",
+                  active === i ? "bg-blanco text-verde shadow-(--shadow-sm)" : "text-tinta-suave",
                 )}
               >
                 {p.name}

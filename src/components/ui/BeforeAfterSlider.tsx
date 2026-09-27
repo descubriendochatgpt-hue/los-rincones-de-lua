@@ -42,7 +42,7 @@ export function BeforeAfterSlider({ before, after, alt, priority = false }: { be
         Antes
       </span>
       <span
-        className="pointer-events-none absolute top-4 right-4 rounded-full bg-blanco/90 px-4 py-2 text-[13px] font-semibold tracking-[0.08em] text-tinta uppercase transition-opacity duration-300 md:top-6 md:right-6"
+        className="pointer-events-none absolute top-4 right-4 rounded-full bg-blanco/90 px-4 py-2 text-[13px] font-semibold tracking-[0.08em] text-verde uppercase transition-opacity duration-300 md:top-6 md:right-6"
         style={{ opacity: pos > 88 ? 0 : 1 }}
       >
         Después
@@ -65,7 +65,7 @@ export function BeforeAfterSlider({ before, after, alt, priority = false }: { be
 
       <div className="pointer-events-none absolute inset-y-0 z-[5] w-0" style={{ left: `${pos}%` }}>
         <div className="absolute inset-y-0 -left-[1.5px] w-[3px] bg-blanco shadow-[0_0_12px_rgb(46_42_38/0.25)]" />
-        <div className="absolute top-1/2 left-0 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-blanco text-tinta shadow-[0_8px_24px_rgb(46_42_38/0.25)] transition-transform duration-200 group-hover:scale-110 md:h-16 md:w-16">
+        <div className="absolute top-1/2 left-0 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-blanco text-verde shadow-[0_8px_24px_rgb(46_42_38/0.25)] transition-transform duration-200 group-hover:scale-110 md:h-16 md:w-16">
           <Icon name="chevrons" size={24} strokeWidth={1.8} />
         </div>
       </div>

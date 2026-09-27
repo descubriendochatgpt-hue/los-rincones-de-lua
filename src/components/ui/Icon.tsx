@@ -85,6 +85,12 @@ const PATHS = {
       <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" />
     </>
   ),
+  pin: (
+    <>
+      <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+      <circle cx="12" cy="9.5" r="2.5" />
+    </>
+  ),
   heart: <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />,
   x: <path d="M6 6l12 12M18 6L6 18" />,
   menu: <path d="M4 8h16M4 16h16" />,

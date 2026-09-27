@@ -24,7 +24,7 @@ export function Logo({ className = "", inverted = false }: { className?: string;
         <span className={`font-serif text-[19px] tracking-[0.06em] uppercase md:text-[21px] ${inverted ? "text-blanco" : "text-salvia-texto"}`}>
           Los Rincones
         </span>
-        <span className={`-mt-0.5 self-center font-script text-[22px] md:text-[24px] ${inverted ? "text-arena" : "text-tinta"}`}>de Lúa</span>
+        <span className={`-mt-0.5 self-center font-script text-[22px] md:text-[24px] ${inverted ? "text-arena" : "text-verde"}`}>de Lúa</span>
       </span>
     </span>
   );

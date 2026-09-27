@@ -246,7 +246,7 @@ export function LeadForm() {
               <div role="alert" className="rounded-xl border border-error/30 bg-error/5 p-4 text-sm font-medium text-error">
                 {submitError}
                 {last ? (
-                  <span className="mt-1 block font-normal text-tinta">
+                  <span className="mt-1 block font-normal text-verde">
                     También puedes escribirme a{" "}
                     <a className="text-terracota underline" href={`mailto:${SITE.contact.email}`}>
                       {SITE.contact.email}
@@ -261,7 +261,7 @@ export function LeadForm() {
               {step > 0 ? (
                 <button
                   type="button"
-                  className="btn h-14 border-[1.5px] border-arena px-5 text-base text-tinta md:border-0"
+                  className="btn h-14 border-[1.5px] border-arena px-5 text-base text-verde md:border-0"
                   onClick={() => {
                     setSubmitError(null);
                     setStep((s) => s - 1);

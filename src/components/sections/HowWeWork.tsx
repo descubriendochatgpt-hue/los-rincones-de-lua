@@ -1,5 +1,4 @@
 import { HOW_WE_WORK } from "@/content/home";
-import { ContactLinks } from "@/components/ui/ContactLinks";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { Rich } from "@/components/ui/Rich";
@@ -34,7 +33,6 @@ export function HowWeWork() {
                     <a href="#contacto" className="btn-primary h-11 px-5 text-[15px]">
                       Ir al formulario <Icon name="arrow-right" size={16} strokeWidth={1.8} />
                     </a>
-                    <ContactLinks />
                   </div>
                 ) : null}
               </div>
