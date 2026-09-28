@@ -32,7 +32,7 @@ export function Testimonials() {
             <Reveal as="li" key={i} delay={i * 0.08} className="w-[85%] shrink-0 snap-center md:w-auto">
               <figure className="lift flex h-full flex-col gap-7 rounded-2xl border border-arena bg-blanco p-7 md:p-9">
                 <QuoteMark className="text-mostaza" />
-                <blockquote className="grow font-serif text-[22px] leading-[1.3] md:text-[26px]">{t.quote}</blockquote>
+                <blockquote className="grow font-serif text-[20px] leading-[1.35] md:text-[21px]">{t.quote}</blockquote>
                 <figcaption className="flex items-center gap-4">
                   {t.photo ? (
                     <Image src={t.photo} alt="" width={56} height={64} className="h-16 w-14 shrink-0 rounded-[999px_999px_12px_12px] object-cover" />

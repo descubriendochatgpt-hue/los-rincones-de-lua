@@ -34,7 +34,7 @@ export const SITE = {
     whatsapp: "34611126352", // solo dígitos, con prefijo de país
     hours: "Lunes a viernes, 9:00–18:00",
     // Zona donde se hacen reformas físicas (se muestra en el footer y en el formulario)
-    serviceArea: "Transformaciones en todo Asturias",
+    serviceArea: "Transformaciones en todo Asturias – Diseño en toda España",
   },
   instagram: { handle: "@losrinconesdelua", url: "https://www.instagram.com/losrinconesdelua/" },
   social: [{ label: "Instagram", href: "https://www.instagram.com/losrinconesdelua/" }],

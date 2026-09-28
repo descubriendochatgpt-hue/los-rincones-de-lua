@@ -42,7 +42,7 @@ export const LEGAL: Record<"aviso-legal" | "privacidad" | "cookies", LegalPage> 
     sections: [
       {
         heading: "Responsable del tratamiento",
-        paragraphs: ["Los Rincones de Lúa. Contacto: Los Rincones de Lúa"],
+        paragraphs: [`Los Rincones de Lúa. Contacto: ${SITE.contact.email}`],
       },
       {
         heading: "Qué datos tratamos",
