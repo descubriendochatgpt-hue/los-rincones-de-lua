@@ -16,7 +16,7 @@ export type Testimonial = {
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Pasar a Lara a su propia habitación nos daba mucho vértigo porque la habitación era un caos y no resultaba acogedora. El proceso de rediseño fue superfluido; escucharon exactamente lo que buscábamos y optimizaron el espacio de forma increíble. Ahora Lara adora su cuarto: entra sola a jugar, se siente segura y duerme toda la noche en su camita nueva.",
+      "Pasar a Laura a su propia habitación nos daba mucho vértigo porque la habitación era un caos y no resultaba acogedora. El proceso de rediseño fue súper fluido; escucharon exactamente lo que buscábamos y optimizaron el espacio de forma increíble. Ahora Laura adora su cuarto: entra sola a jugar, se siente segura y duerme toda la noche en su camita nueva.",
     name: "Laura",
     detail: "Mamá de Laura, 2 años · Oviedo",
     initial: "L",
